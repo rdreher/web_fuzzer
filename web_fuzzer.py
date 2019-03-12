@@ -27,9 +27,10 @@ class WebFuzzer(IIntruderPayloadGenerator):
     self._helpers  = extender._helpers
     self._attack   = attack
     print "WebFuzzer initialized"
-    self.max_payloads = 1000
+    self.payloadList = "/Users/dreher/Developer/SecLists/Fuzzing/XSS-BruteLogic.txt"
+    self.max_payloads = self.getTotalPayloads(self.payloadList) + 1 # Total payloads plus the original one
     self.num_payloads = 1
-
+    
     return
 
   def getTotalPayloads(self,fileName):
@@ -39,9 +40,7 @@ class WebFuzzer(IIntruderPayloadGenerator):
 
   def hasMorePayloads(self):
     print "hasMorePayloads called."
-    # We ovewrite the max_payloads with the 
-    # number of payloads available in the file
-    if self.num_payloads == self.getTotalPayloads("/Users/dreher/Developer/SecLists/Fuzzing/XSS-BruteLogic.txt") + 1:
+    if self.num_payloads == self.max_payloads:
       print "No more payloads."
       return False
     else:
@@ -73,7 +72,7 @@ class WebFuzzer(IIntruderPayloadGenerator):
     payload = original_payload[:offset]
 
     # Lets load the payloads from a file
-    payload += open('/Users/dreher/Developer/SecLists/Fuzzing/XSS-BruteLogic.txt').readlines()[:self.num_payloads][-1].rstrip("\n")
+    payload += open(self.payloadList).readlines()[:self.num_payloads][-1].rstrip("\n")
 
     # add the remaining bits of the payload 
     payload += original_payload[offset:]
