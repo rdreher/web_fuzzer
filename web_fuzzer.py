@@ -64,6 +64,9 @@ class WebFuzzer(IIntruderPayloadGenerator):
     self.num_payloads = 0
     return
 
+  def loadPayload(self):
+    return open(self.payloadList).readlines()[:self.num_payloads][-1].rstrip("\n")
+
   # Simple mutation method for our payload
   def mutate_payload(self,original_payload):
 
@@ -72,7 +75,7 @@ class WebFuzzer(IIntruderPayloadGenerator):
     payload = original_payload[:offset]
 
     # Lets load the payloads from a file
-    payload += open(self.payloadList).readlines()[:self.num_payloads][-1].rstrip("\n")
+    payload += self.loadPayload()
 
     # add the remaining bits of the payload 
     payload += original_payload[offset:]
