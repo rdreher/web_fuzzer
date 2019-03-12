@@ -9,3 +9,5 @@ Python extension to Burp Suite based on Chapter 6 of the book "Black Hat Python"
 ## About this application
 
 Simple mutation fuzzer to run as an extension to Burp Suite. Allows to use intercepted HTTP requests from Burp Proxy as a seed to run in Burp Intruder.
+
+Thanks to Daniel Miessler for compiling an awresome list of payloads [here](https://github.com/danielmiessler/SecLists).
