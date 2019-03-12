@@ -19,9 +19,9 @@ class BurpExtender(IBurpExtender, IIntruderPayloadGeneratorFactory):
     return "WebFuzzer Payload Generator"
 
   def createNewInstance(self, attack): 
-    return BHPFuzzer(self, attack)
+    return WebFuzzer(self, attack)
 
-class BHPFuzzer(IIntruderPayloadGenerator):
+class WebFuzzer(IIntruderPayloadGenerator):
   def __init__(self, extender, attack):
     self._extender = extender
     self._helpers  = extender._helpers
